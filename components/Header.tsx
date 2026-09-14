@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import ContactLoginModal from '@/components/ContactLoginModal';
 import { useState } from 'react';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   const close = () => setOpen(false);
 
@@ -27,7 +29,7 @@ export default function Header() {
 
         <div className="site-actions">
           <Link href="/sell" className="site-post-btn">Post Property</Link>
-          <Link href="/login" className="site-login">Login / Sign up</Link>
+          <button type="button" className="site-login" onClick={() => setLoginOpen(true)}>Login / Sign up</button>
           <button
             type="button"
             className="mobile-menu-btn"
@@ -40,10 +42,14 @@ export default function Header() {
         </div>
       </div>
 
+      {loginOpen && (
+        <ContactLoginModal nextPath="/" onClose={() => setLoginOpen(false)} />
+      )}
+
       {open && (
         <div className="mobile-quickbar">
           <div className="container mobile-quickbar-inner">
-            <Link href="/login" onClick={close}>Login / Sign up</Link>
+            <button type="button" className="site-login" onClick={() => { close(); setLoginOpen(true); }}>Login / Sign up</button>
             <Link href="/sell" onClick={close}>List Property</Link>
           </div>
         </div>
