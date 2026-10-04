@@ -3,8 +3,11 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, LockKeyhole, ShieldCheck } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const [sent, setSent] = useState(false);
   const [done, setDone] = useState(false);
   const [mobile, setMobile] = useState('');
@@ -30,7 +33,16 @@ export default function LoginPage() {
 
   const verify = () => {
     if (/^\d{6}$/.test(otp)) {
+      sessionStorage.setItem('1bigha_logged_in', 'true');
+
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('next') || '/account';
+
       setDone(true);
+
+      setTimeout(() => {
+        router.push(next);
+      }, 500);
     }
   };
 
@@ -67,6 +79,7 @@ export default function LoginPage() {
 
           {done ? (
             <div className="login-success">
+
               <b>✓ Mobile verified</b>
 
               <span>
@@ -76,14 +89,14 @@ export default function LoginPage() {
                 )}
               </span>
 
-              <Link href="/" className="login-button">
+              <Link href="/account" className="login-button">
                 Continue
                 <ArrowRight size={17} />
               </Link>
+
             </div>
           ) : !sent ? (
 
-            /* Mobile number screen */
             <div className="login-form">
 
               <label>Mobile number</label>
@@ -119,12 +132,12 @@ export default function LoginPage() {
 
           ) : (
 
-            /* OTP screen */
             <div className="login-form">
 
               <label>Enter OTP</label>
 
               <div className="mobile-input">
+
                 <LockKeyhole size={18} />
 
                 <input
@@ -140,6 +153,7 @@ export default function LoginPage() {
                   placeholder="6-digit OTP"
                   autoFocus
                 />
+
               </div>
 
               <button
