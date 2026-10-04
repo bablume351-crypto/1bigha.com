@@ -8,9 +8,9 @@ export default function ShareButton({ title, location }: { title: string; locati
     try {
       if (navigator.share) {
         await navigator.share({
-          title,
-          text: location ? `${title} — ${location}` : title,
-          url,
+  title,
+  text: `${location ? `${title} — ${location}` : title}\n\n${url}`,
+});
         });
         return;
       }
