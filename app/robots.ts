@@ -1,19 +1,14 @@
 import type { MetadataRoute } from 'next';
 
-export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://1बीघा.com';
-
+const robots = (): MetadataRoute.Robots => {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: [
-        '/account',
-        '/login',
-        '/admin',
-      ],
+      disallow: ['/account', '/login', '/admin'],
     },
-
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: 'https://1बीघा.com/sitemap.xml',
   };
-}
+};
+
+export default robots;
