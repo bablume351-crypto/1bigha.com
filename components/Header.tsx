@@ -50,6 +50,7 @@ export default function Header() {
           className={`site-nav ${open ? 'open' : ''}`}
           aria-label="Main navigation"
         >
+
           <Link href="/search" onClick={close}>
             Buy
           </Link>
@@ -65,20 +66,18 @@ export default function Header() {
             Land
           </Link>
 
-          <Link
-            href="/search?type=Residential%20Plot"
-            onClick={close}
-          >
-            Plots
+          <Link href="/search?live=true" onClick={close}>
+            Live Projects
           </Link>
 
-          <Link href="/map" onClick={close}>
-            Map
+          <Link href="/partners" onClick={close}>
+            Partners
           </Link>
 
           <Link href="/account" onClick={close}>
             Account
           </Link>
+
         </nav>
 
         <div className="site-actions">
