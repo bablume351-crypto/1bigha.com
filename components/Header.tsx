@@ -14,16 +14,25 @@ export default function Header() {
   const close = () => setOpen(false);
 
   useEffect(() => {
-    if (pathname === '/') {
-      setLoginOpen(true);
-    } else {
+    if (pathname !== '/') {
       setLoginOpen(false);
+      return;
+    }
+
+    const loggedIn = sessionStorage.getItem('1bigha_logged_in');
+
+    if (loggedIn === 'true') {
+      setLoginOpen(false);
+    } else {
+      setLoginOpen(true);
     }
   }, [pathname]);
 
   return (
     <header className="site-header">
+
       <div className="container site-header-inner">
+
         <Link
           href="/"
           className="brand"
@@ -73,7 +82,11 @@ export default function Header() {
         </nav>
 
         <div className="site-actions">
-          <Link href="/sell" className="site-post-btn">
+
+          <Link
+            href="/sell"
+            className="site-post-btn"
+          >
             Post Property
           </Link>
 
@@ -92,8 +105,13 @@ export default function Header() {
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {open ? (
+              <X size={22} />
+            ) : (
+              <Menu size={22} />
+            )}
           </button>
+
         </div>
       </div>
 
@@ -106,6 +124,7 @@ export default function Header() {
 
       {open && (
         <div className="mobile-quickbar">
+
           <div className="container mobile-quickbar-inner">
 
             <button
@@ -119,13 +138,18 @@ export default function Header() {
               Login / Sign up
             </button>
 
-            <Link href="/sell" onClick={close}>
+            <Link
+              href="/sell"
+              onClick={close}
+            >
               List Property
             </Link>
 
           </div>
+
         </div>
       )}
+
     </header>
   );
 }
