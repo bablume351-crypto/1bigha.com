@@ -11,7 +11,7 @@ export default function ShareButton({ title, location }: { title: string; locati
   title,
   text: `${location ? `${title} — ${location}` : title}\n\n${url}`,
 });
-        });
+        
         return;
       }
       await navigator.clipboard.writeText(url);
