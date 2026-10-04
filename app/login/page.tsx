@@ -33,7 +33,11 @@ export default function LoginPage() {
 
   const verify = () => {
     if (/^\d{6}$/.test(otp)) {
+      // Save login status
       sessionStorage.setItem('1bigha_logged_in', 'true');
+
+      // Save verified mobile number
+      sessionStorage.setItem('1bigha_mobile', mobile);
 
       const params = new URLSearchParams(window.location.search);
       const next = params.get('next') || '/account';
